@@ -1,11 +1,11 @@
 import React,{createContext,useReducer} from 'react';
-import { Strategy } from 'workbox-strategies';
+// import { Strategy } from 'workbox-strategies';
 
 import Context from './Context';
 // import {Products }from './Products'
-
-export const cartContext= createContext();
 import {reducer } from './reducer';
+export const cartContext= createContext();
+ 
 const Cart = () => {
     const products= [
         {
@@ -44,7 +44,7 @@ const Cart = () => {
           price:234,
           desc: 'A computer is a machine that can be programmed to carry out sequences of arithmetic or logical operations automatically.'
          },{
-          id:5,
+          id:6,
           src:"https://plus.unsplash.com/premium_photo-1668698356795-904945de5286?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
           ,
           title:"title6",
@@ -59,10 +59,15 @@ const Cart = () => {
       }
     // const [item, setItem] = useState(Products);
     const [state, dispatch] = useReducer(reducer, initialState);
-
+  const removeItem=(id)=>{
+    return dispatch({
+    type:'REMOVE_ITEM',
+    payload: id,
+   } )
+  }
   return (
     <>
-    <cartContext.Provider value={...state}>
+    <cartContext.Provider value={{...state, removeItem}}>
       <Context/>
       </cartContext.Provider>
     </>
